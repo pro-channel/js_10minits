@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>プログラミングちゃんねる</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <script src="./js/bootstrap.bundle.min.js" ></script>
+    <script>
+      const removeClick = (event) => {
+        event.currentTarget.parentNode.parentNode.remove();
+      }
+
+      const addClick = () => {
+        if (document.getElementById("add_date").value == "") {
+          alert("日付が設定されていません");
+          return;
+        }
+
+        if (document.getElementById("add_text").value == "") {
+          alert("内容が設定されていません");
+          return;
+        }
+
+        // 行TR
+        var newRow = document.createElement("tr");
+        // 日付列
+        var dateTd = document.createElement("td");
+        // 内容列
+        var contentTd = document.createElement("td");
+        // 削除列
+        var removeTd = document.createElement("td");
+        // removeボタン
+        var removeButton = document.createElement("input");
+        removeButton.setAttribute("type", "button");
+        removeButton.value = "remove";
+        removeButton.onclick = removeClick;
+
+        // TDの中身を設定
+        dateTd.innerText = document.getElementById("add_date").value;
+        contentTd.innerText = document.getElementById("add_text").value;
+        removeTd.appendChild(removeButton);
+
+        // TRへTDを追加
+        newRow.appendChild(dateTd);
+        newRow.appendChild(contentTd);
+        newRow.appendChild(removeTd);
+        
+        document.getElementById("table_body").appendChild(newRow);
+
+      }
+
+      window.onload = () => {
+        document.getElementById("add_button").onclick = addClick;
+      }
+
+    </script>
+  </head>
+  <body>
+    <h1>スケジュールアプリ</h1>
+    <div>
+      <input type="date" id="add_date" />
+      <input type="text" id="add_text" />
+      <input type="button" id="add_button" value="add" />
+    </div>
+
+    <table class="table">
+      <thead> 
+        <tr>
+          <th class="col">日付</th>
+          <th class="col-8">内容</th>
+          <th class="col">削除</th>
+        </tr>
+      </thead>
+      <tbody id="table_body">
+
+      </tbody>
+    </table>
+  </body>
+</html>
